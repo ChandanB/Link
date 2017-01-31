@@ -6,8 +6,6 @@ target 'Match' do
   use_frameworks!
 
   # Pods for Match
-  	pod 'lf', '~> 0.5.0'
-	pod 'SwiftLocation', '~> 1.0.5'
-	pod 'EZSwipeController'
-	pod 'VIMVideoPlayer', ‘{CURRENT_POD_VERSION}’
+  pod 'lf', '~> 0.5.0'
+  pod 'EZSwipeController'
 end

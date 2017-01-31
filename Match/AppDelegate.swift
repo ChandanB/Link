@@ -15,7 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window!.rootViewController = HomeViewController()
+        window!.makeKeyAndVisible()
+                
+        // get rid of black bar underneath navbar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = .clear
+        statusBarBackgroundView.tintColor = .white
+        window?.addSubview(statusBarBackgroundView)
+        window?.addConstraintsWithFormat("H:|[v0]|", views: statusBarBackgroundView)
+        window?.addConstraintsWithFormat("V:|[v0(20)]", views: statusBarBackgroundView)
         return true
     }
 

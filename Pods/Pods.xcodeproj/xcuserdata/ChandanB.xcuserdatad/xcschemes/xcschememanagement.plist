@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>EZSwipeController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Match.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>XCGLogger.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>lf.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>2E46F7E52A02998A20AB4C2136F647A6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>74DCDC74F654C6D8DD06B39D7118A6F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D168A90FC275B7C8B0DDF59974BBE8BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4C04C8BF75F010A66DCC493E226DF47</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
