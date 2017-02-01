@@ -6,6 +6,8 @@ target 'Match' do
   use_frameworks!
 
   # Pods for Match
-  pod 'lf', '~> 0.5.0'
+  pod 'lf'
   pod 'EZSwipeController'
+  pod 'NVActivityIndicatorView'
+
 end

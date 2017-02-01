@@ -2,19 +2,22 @@ PODS:
   - EZSwipeController (0.6.1)
   - lf (0.5.8):
     - XCGLogger (~> 4.0.0)
+  - NVActivityIndicatorView (3.2)
   - XCGLogger (4.0.0):
     - XCGLogger/Core (= 4.0.0)
   - XCGLogger/Core (4.0.0)
 
 DEPENDENCIES:
   - EZSwipeController
-  - lf (~> 0.5.0)
+  - lf
+  - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   EZSwipeController: 255b0f8aed31963b0236802c926e27dd006a2532
   lf: 83f61150559ef957ee1750f8a25e84cff391f289
+  NVActivityIndicatorView: 28942c18ced111a6a3ce5e6f5b27d9d40116d639
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 99ec3b689e8921c145f38f74b5f1b4aa8b54c975
+PODFILE CHECKSUM: 83ef18959a0e40ccad8b3cd0ad7f98580ea8cbaf
 
 COCOAPODS: 1.0.1

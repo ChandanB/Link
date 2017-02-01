@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6B3B30AB370EDE8F9880414BFD5261B1"
-               BuildableName = "Pods_Match.framework"
-               BlueprintName = "Pods-Match"
+               BlueprintIdentifier = "070374204E491EF7E794313D14C6950B"
+               BuildableName = "NVActivityIndicatorView.framework"
+               BlueprintName = "NVActivityIndicatorView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6B3B30AB370EDE8F9880414BFD5261B1"
-            BuildableName = "Pods_Match.framework"
-            BlueprintName = "Pods-Match"
+            BlueprintIdentifier = "070374204E491EF7E794313D14C6950B"
+            BuildableName = "NVActivityIndicatorView.framework"
+            BlueprintName = "NVActivityIndicatorView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
