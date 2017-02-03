@@ -16,6 +16,13 @@ class ProfileViewController: UIViewController {
         
     }
     
+    lazy var bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        view.frame = CGRect(x: 0, y: Constants.ScreenHeightWithoutStatusBar - Constants.navigationBarHeight, width: Constants.ScreenWidth, height: Constants.navigationBarHeight)
+        return view
+    }()
+    
     lazy var interestButton: UIButton = {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(doNothing), for: .touchUpInside)
@@ -89,6 +96,13 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let homeButtonImage = UIImage(named: "Profile Image Shape")
+        let imageView = UIImageView(image: homeButtonImage)
+        let middleView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        imageView.frame = CGRect(x: 0, y: 0, width: middleView.frame.width, height: middleView.frame.height)
+        middleView.addSubview(imageView)
+        navigationItem.titleView = middleView
+        
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -104,6 +118,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(locationLabel)
         view.addSubview(interestButton)
         view.addSubview(profileImageView)
+        view.addSubview(bottomView)
         view.sendSubview(toBack: imageViewBackground)
         setupUsernameLabel()
         setupBioLabel()
@@ -123,7 +138,6 @@ class ProfileViewController: UIViewController {
         locationLabel.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 12).isActive = true
         locationLabel.widthAnchor.constraint(equalTo: bioLabel.widthAnchor).isActive = true
 
-        locationLabel.widthAnchor.constraint(equalTo:   view.widthAnchor, constant: -64).isActive = true
         locationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
@@ -131,7 +145,6 @@ class ProfileViewController: UIViewController {
         // x, y, width, height
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(doNothing)))
         profileImageView.bottomAnchor.constraint(equalTo: usernameLabel.topAnchor, constant: -12).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 12).isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
@@ -149,7 +162,7 @@ class ProfileViewController: UIViewController {
         // x, y, width, height
         usernameLabel.bottomAnchor.constraint(equalTo: bioLabel.topAnchor, constant: -4).isActive = true
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameLabel.widthAnchor.constraint(equalToConstant: 216).isActive = true
+        usernameLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         usernameLabel.heightAnchor.constraint(equalToConstant: 31.39).isActive = true
     }
 }

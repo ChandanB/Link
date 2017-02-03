@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AMScrollingNavbar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>EZSwiftExtensions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>EZSwipeController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -14,7 +24,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Match.xcscheme</key>
+		<key>Pods-Link.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,12 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B3B30AB370EDE8F9880414BFD5261B1</key>
+		<key>536B9F35AFF1A6725F02302B5F55F59B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65E872E719490B3E5DC06A3F7E9D4A0D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>74DCDC74F654C6D8DD06B39D7118A6F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>97A83A304CBA7B6DA5B82376F87BBA9A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

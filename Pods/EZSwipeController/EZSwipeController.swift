@@ -19,7 +19,7 @@ import UIKit
     @objc optional func changedToPageIndex(_ index: Int)
 }
 
-open class EZSwipeController: UIViewController {
+open class EZSwipeController: UIViewController, UIScrollViewDelegate {
 
     public struct Constants {
         public static var Orientation: UIInterfaceOrientation {
@@ -156,7 +156,6 @@ open class EZSwipeController: UIViewController {
             }
             stackPageVC.append(pageViewController)
         }
-        
         currentStackVC = stackPageVC[stackStartLocation]
     }
 
@@ -183,7 +182,6 @@ open class EZSwipeController: UIViewController {
     }
 
     open func setupView() {
-
     }
     
     public func setFrameForCurrentOrientation(){

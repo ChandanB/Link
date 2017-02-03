@@ -1,4 +1,6 @@
 PODS:
+  - AMScrollingNavbar (3.2.0)
+  - EZSwiftExtensions (1.8)
   - EZSwipeController (0.6.1)
   - lf (0.5.8):
     - XCGLogger (~> 4.0.0)
@@ -8,16 +10,20 @@ PODS:
   - XCGLogger/Core (4.0.0)
 
 DEPENDENCIES:
+  - AMScrollingNavbar
+  - EZSwiftExtensions
   - EZSwipeController
   - lf
   - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
+  AMScrollingNavbar: cf603d4d5f11061d466a0878b9ada136248927b2
+  EZSwiftExtensions: b58e0fe7702e30c4f01bd039658fe84b4fdf5bd5
   EZSwipeController: 255b0f8aed31963b0236802c926e27dd006a2532
   lf: 83f61150559ef957ee1750f8a25e84cff391f289
   NVActivityIndicatorView: 28942c18ced111a6a3ce5e6f5b27d9d40116d639
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 83ef18959a0e40ccad8b3cd0ad7f98580ea8cbaf
+PODFILE CHECKSUM: c94e9d82ff8920bd7e1d77dd2d68d40eb7c99df1
 
 COCOAPODS: 1.0.1

@@ -63,7 +63,7 @@ extension UIView {
     }
     
     func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         
@@ -71,6 +71,15 @@ extension UIView {
         self.addSubview(blurEffectView)
     }
     
+    func addLightBlurEffect() {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
+    }
+
     func addRihannaBackground() {
         // screen width and height:
         let width = UIScreen.main.bounds.size.width
@@ -97,5 +106,38 @@ public extension UIView {
         animation.autoreverses = false
         layer.add(animation, forKey: "moveDown")
     }
+}
+
+
+public struct Constants {
+    public static var Orientation: UIInterfaceOrientation {
+        return UIApplication.shared.statusBarOrientation
+    }
+    public static var ScreenWidth: CGFloat {
+        if UIInterfaceOrientationIsPortrait(Orientation) {
+            return UIScreen.main.bounds.width
+        } else {
+            return UIScreen.main.bounds.height - 5
+        }
+    }
+    public static var ScreenHeight: CGFloat {
+        if UIInterfaceOrientationIsPortrait(Orientation) {
+            return UIScreen.main.bounds.height
+        } else {
+            return UIScreen.main.bounds.width
+        }
+    }
+    public static var StatusBarHeight: CGFloat {
+        return UIApplication.shared.statusBarFrame.height
+    }
+    public static var ScreenHeightWithoutStatusBar: CGFloat {
+        if UIInterfaceOrientationIsPortrait(Orientation) {
+            return UIScreen.main.bounds.height
+        } else {
+            return UIScreen.main.bounds.width
+        }
+    }
+    public static let navigationBarHeight: CGFloat = 44
+    public static let lightGrayColor = UIColor(red: 248, green: 248, blue: 248, alpha: 1)
 }
 
