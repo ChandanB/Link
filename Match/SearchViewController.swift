@@ -8,12 +8,35 @@
 
 import UIKit
 import CoreImage
+import NVActivityIndicatorView
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, NVActivityIndicatorViewable {
     var context = CIContext(options: nil)
+    var loading: NVActivityIndicatorView?
+    var searching: SearchingEnum?
+    
+    lazy var loadingView: NVActivityIndicatorView = {
+        let load = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        return load
+    }()
+    
+    lazy var searchLabel: UILabel = {
+        let label = UILabel()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startSearching))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Begin Search"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "HelveticaNeue-Medium", size: 42)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        searching = SearchingEnum.notSearching
+        self.loading = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.midX - 50, y: self.view.frame.midY - 60, width: 100, height: 100), type: NVActivityIndicatorType.lineScalePulseOut, color: .white, padding: NVActivityIndicatorView.DEFAULT_PADDING)
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -31,55 +54,55 @@ class SearchViewController: UIViewController {
         imageViewBackground.addBlurEffect()
         view.sendSubview(toBack: imageViewBackground)
         view.addSubview(imageViewBackground)
-       // view.addSubview(searchLabel)
-       // view.addSubview(startSearchImageView)
-        view.sendSubview(toBack: imageViewBackground)
-        //setupUsernameLabel()
-       // setupProfileImageView()
-
-        view.addSubview(imageViewBackground)
+        view.addSubview(searchLabel)
+        view.addSubview((self.loading)!)
+        setupSearchLabel()
     }
-
-    lazy var startSearchImageView: UIImageView = {
-        let imageView = UIImageView()
-        let origImage = UIImage(named: "Go Image")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = true
-        imageView.image = origImage
-        imageView.clipsToBounds = true
-        imageView.layer.masksToBounds = false
-        
-        return imageView
-    }()
     
-    lazy var searchLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.tintColor = .white
-        label.text = "Begin Search"
-        label.textColor = .white
-        label.textAlignment = .center
-        label.font = UIFont(name: "HelveticaNeue", size: 46)
-        return label
-    }()
-    var searchHeightAnchor: NSLayoutConstraint?
-
+    func startSearching() {
+        if searching == .notSearching {
+            searching = .isSearching
+            UIView.transition(with: searchLabel, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+                self.setupCancelLabel()
+                self.searchLabel.text = "Cancel"
+                self.searchLabel.textColor = .red
+                self.searchLabel.font = UIFont(name: "HelveticaNeue-UltraLight", size: 42)
+                self.loading?.startAnimating()
+            }, completion:nil)
+            
+        } else if self.searchLabel.text == "Cancel" {
+            self.setupSearchLabel()
+            searching = .notSearching
+            self.loading?.stopAnimating()
+            UIView.transition(with: searchLabel, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+                self.searchLabel.text = "Begin Search"
+                self.searchLabel.textColor = .white
+                self.searchLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 42)
+            }, completion:nil)
+        }
+    }
     
-    func setupProfileImageView() {
+    func setupCancelLabel(){
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.25, animations: {
+            self.searchLabelBottomAnchor?.constant = 310
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    var searchLabelBottomAnchor: NSLayoutConstraint?
+    
+    func setupSearchLabel() {
         // x, y, width, height
-        startSearchImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startSearchImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        searchHeightAnchor = startSearchImageView.heightAnchor.constraint(equalToConstant: 500)
-        startSearchImageView.widthAnchor.constraint(equalToConstant: 590).isActive = true
-        searchHeightAnchor?.isActive = true
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1, animations: {
+            self.searchLabelBottomAnchor = self.searchLabel.bottomAnchor.constraint(equalTo: (self.loading?.topAnchor)!, constant: -10)
+            self.searchLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+            self.searchLabel.widthAnchor.constraint(equalToConstant: 316).isActive = true
+            self.searchLabel.heightAnchor.constraint(equalToConstant: 61.39).isActive = true
+            self.searchLabelBottomAnchor?.isActive = true
+            self.view.layoutIfNeeded()
+        })
     }
     
-    func setupUsernameLabel() {
-//        // x, y, width, height
-        searchLabel.bottomAnchor.constraint(equalTo: startSearchImageView.topAnchor, constant: -6).isActive = true
-       searchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        searchLabel.widthAnchor.constraint(equalToConstant: 216).isActive = true
-        searchLabel.heightAnchor.constraint(equalToConstant: 31.39).isActive = true
-    }
-
 }
