@@ -12,3 +12,10 @@ enum SearchingEnum {
     case isSearching
     case notSearching
 }
+
+enum ScrollViewPosition {
+    case isIncreasing
+    case isDecreasing
+    case isAtOrigin
+    case isAtCenterOfScreen
+}

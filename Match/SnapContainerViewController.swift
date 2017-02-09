@@ -7,18 +7,33 @@
 //
 
 import UIKit
+import Firebase
+import AVFoundation
+import EZSwiftExtensions
+import NVActivityIndicatorView
 
 protocol SnapContainerViewControllerDelegate {
     func outerScrollViewShouldScroll() -> Bool
 }
 
-class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
+class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVActivityIndicatorViewable {
+    var startColor = UIColor.clear
+    var context = CIContext(options: nil)
+    var loading: NVActivityIndicatorView?
+    var searching: SearchingEnum?
+    
+    lazy var loadingView: UIView = {
+        let load = UIView()
+        load.translatesAutoresizingMaskIntoConstraints = false
+        return load
+    }()
     
     var topVc = ProfileViewController()
     var middleVc = SearchViewController()
     var bottomVc = ProfileViewController()
     var leftVc = ProfileViewController()
     var rightVc = MatchesViewController()
+    let viewController = ViewController()
     
     var directionLockDisabled: Bool!
     
@@ -29,6 +44,116 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
     var middleVertScrollVc: VerticalScrollViewController!
     var scrollView: UIScrollView!
     var delegate: SnapContainerViewControllerDelegate?
+    
+    var session: AVCaptureSession?
+    var stillImageOutput: AVCapturePhotoOutput?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    
+    lazy var videoView: UIView = {
+        let view = UIView()
+        view.frame = self.view.bounds
+        return view
+    }()
+    
+    lazy var matchesTextLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Match"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "Allura-Regular", size: 32)
+        return label
+    }()
+    
+    lazy var beginSearchLabel: UILabel = {
+        let label = UILabel()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startSearching))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Begin Search"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "HelveticaNeue-Medium", size: 42)
+        return label
+    }()
+    
+    lazy var searchingLabel: UILabel = {
+        let label = UILabel()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startSearching))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Searching"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "HelveticaNeue-Medium", size: 42)
+        label.isHidden = true
+        return label
+    }()
+    
+    let backButton: UIButton = {
+        let imageView = UIButton(type: .custom)
+        let image = UIImage(named: "Back Button")
+        imageView.setImage(image, for: .normal)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let settingsButton: UIButton = {
+        let imageView = UIButton(type: .custom)
+        let image = UIImage(named: "Settings Image Shape")
+        imageView.setImage(image, for: .normal)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let topView: UIView = {
+        let view = UIView()
+        // UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let topLineView: UIView = {
+        let view = UIView()
+        // UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        view.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.10)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let messageImageIcon: UIImageView = {
+        let imageView = UIImageView()
+        let image = UIImage(named: "Messaging Image Shape")
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    var profileImageIcon: UIImageView = {
+        let imageView = UIImageView()
+        let image = UIImage(named: "Profile Image Shape")
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        checkIfUserIsLoggedIn()
+        self.profileImageIcon.alpha = 0
+        self.messageImageIcon.alpha = 0
+        searching = SearchingEnum.notSearching
+        setupVerticalScrollView()
+        setupHorizontalScrollView()
+        navBar?.isHidden = true
+        setupBackgroundView()
+        makeLoadingView()
+        setupbeginSearchLabel()
+        setupMessageImageIcon()
+    }
     
     class func containerViewWith(_ leftVC: UIViewController,
                                  middleVC: UIViewController,
@@ -48,17 +173,217 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
         return container
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupVerticalScrollView()
-        setupHorizontalScrollView()
-        view.backgroundColor = .white
+    func setupBackgroundView() {
+        view.addSubview(videoView)
+        view.sendSubview(toBack: videoView)
+    }
+    
+    func startSearching() {
+        if searching == .notSearching {
+            searching = .isSearching
+            Timer.runThisAfterDelay(seconds: 0.5, after: {
+                self.loading?.startAnimating()
+            })
+            UIView.transition(with: beginSearchLabel, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+                self.setupCancelLabel()
+                self.beginSearchLabel.text = "Cancel"
+                self.beginSearchLabel.textColor = .red
+                self.beginSearchLabel.font = UIFont(name: "HelveticaNeue-UltraLight", size: 28)
+            }, completion:nil)
+        } else if self.beginSearchLabel.text == "Cancel" || searching == .isSearching {
+            self.searchingLabel.isHidden = true
+            self.loading?.stopAnimating()
+            self.setupbeginSearchLabel()
+            searching = .notSearching
+            UIView.transition(with: beginSearchLabel, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+                self.beginSearchLabel.text = "Begin Search"
+                self.beginSearchLabel.textColor = .white
+                self.beginSearchLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 42)
+            }, completion:nil)
+        }
+    }
+    
+    func setupCancelLabel(){
+        self.view.layoutIfNeeded()
+        Timer.runThisAfterDelay(seconds: 0.1, after: {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.searchingLabel.isHidden = false
+                self.searchingLabelBottomAnchor?.constant = -120
+                self.view.layoutIfNeeded()
+            })
+        })
+        self.beginSearchLabelBottomAnchor?.isActive = false
+        UIView.animate(withDuration: 1, animations: {
+            self.beginSearchLabelBottomAnchor?.constant = 210
+            self.beginSearchLabelBottomAnchor?.isActive = true
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    var beginSearchLabelBottomAnchor: NSLayoutConstraint?
+    var beginSearchLeftAnchor: NSLayoutConstraint?
+    
+    var searchingLabelBottomAnchor: NSLayoutConstraint?
+    var searchingLabelLeftAnchor: NSLayoutConstraint?
+    
+    var profileImageLeftAnchor: NSLayoutConstraint?
+    var messageImageLeftAnchor: NSLayoutConstraint?
+    var loadingViewLeftAnchor: NSLayoutConstraint?
+    var matchesTextLeftAnchor: NSLayoutConstraint?
+    var matchesTextBottomAnchor: NSLayoutConstraint?
+    
+    func setupbeginSearchLabel() {
         
-        let navBarColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        UINavigationBar.appearance().backgroundColor = navBarColor
+        loadingView.addSubview(loading!)
+        scrollView.addSubview(beginSearchLabel)
+        scrollView.addSubview(loadingView)
+        scrollView.sendSubview(toBack: loadingView)
+        scrollView.addSubview(searchingLabel)
+        scrollView.sendSubview(toBack: searchingLabel)
+        scrollView.addSubview(topView)
+        scrollView.addSubview(topLineView)
+        scrollView.sendSubview(toBack: topLineView)
+        topView.addSubview(profileImageIcon)
+        topView.addSubview(messageImageIcon)
+        scrollView.addSubview(matchesTextLabel)
+        scrollView.sendSubview(toBack: matchesTextLabel)
+        topView.addSubview(settingsButton)
+        settingsButton.isHidden = true
         
-        let settingsImage = UIImage(named: "Settings Image Shape")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(goToSettings))
+        // x, y, width, height
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1, animations: {
+            
+            self.loadingViewLeftAnchor = self.loadingView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 430)
+            self.loadingView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            self.loadingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            self.loadingView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
+            self.loadingView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor).isActive = true
+            self.loadingViewLeftAnchor?.isActive = true
+            
+            self.topView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 20).isActive = true
+            self.topView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+            self.topView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor).isActive = true
+            self.topView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor, constant: 320).isActive = true
+            
+            
+            self.matchesTextLabel.heightAnchor.constraint(equalToConstant: 44).isActive = true
+            self.matchesTextLabel.widthAnchor.constraint(equalTo: self.topView.widthAnchor).isActive = true
+            self.matchesTextBottomAnchor = self.matchesTextLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.matchesTextLeftAnchor = self.matchesTextLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor)
+            self.matchesTextBottomAnchor?.isActive = true
+            self.matchesTextLeftAnchor?.isActive = true
+            
+            self.topLineView.bottomAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: 1).isActive = true
+            self.topLineView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor, constant: 320).isActive = true
+            self.topLineView.widthAnchor.constraint(equalToConstant: 1280).isActive = true
+            self.topLineView.heightAnchor.constraint(equalToConstant: 0.45).isActive = true
+            
+            self.profileImageLeftAnchor = self.profileImageIcon.leftAnchor.constraint(equalTo: self.view.leftAnchor)
+            self.profileImageIcon.bottomAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: -10).isActive = true
+            self.profileImageIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            self.profileImageIcon.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            self.profileImageLeftAnchor?.isActive = true
+            
+            self.settingsButton.bottomAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: -10).isActive = true
+            self.settingsButton.centerXAnchor.constraint(equalTo: self.topView.centerXAnchor, constant: -460).isActive = true
+            self.settingsButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            self.settingsButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            self.beginSearchLabelBottomAnchor = self.beginSearchLabel.bottomAnchor.constraint(equalTo: (self.loadingView.bottomAnchor), constant: -10)
+            self.beginSearchLeftAnchor = self.beginSearchLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 320)
+            self.beginSearchLabel.widthAnchor.constraint(equalToConstant: 316).isActive = true
+            self.beginSearchLabel.heightAnchor.constraint(equalToConstant: 61.39).isActive = true
+            self.beginSearchLabelBottomAnchor?.isActive = true
+            self.beginSearchLeftAnchor?.isActive = true
+            
+            self.searchingLabelBottomAnchor = self.searchingLabel.bottomAnchor.constraint(equalTo: (self.loadingView.bottomAnchor), constant: 0)
+            self.searchingLabelLeftAnchor = self.searchingLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 320)
+            self.searchingLabel.widthAnchor.constraint(equalToConstant: 316).isActive = true
+            self.searchingLabel.heightAnchor.constraint(equalToConstant: 61.39).isActive = true
+            self.searchingLabelBottomAnchor?.isActive = true
+            self.searchingLabelLeftAnchor?.isActive = true
+            
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func makeLoadingView() {
+        self.loading = NVActivityIndicatorView(frame: CGRect(x: self.loadingView.frame.midX, y: self.loadingView.frame.midY, width: 100, height: 100), type: NVActivityIndicatorType.lineScalePulseOut, color: .white, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+    }
+    
+    func setupMessageImageIcon() {
+        self.messageImageLeftAnchor = self.messageImageIcon.leftAnchor.constraint(equalTo: self.scrollView.rightAnchor, constant: 460)
+        self.messageImageIcon.bottomAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: -10).isActive = true
+        self.messageImageIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        self.messageImageIcon.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.messageImageLeftAnchor?.isActive = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //add AVCaptureVideoPreviewLayer as sublayer of self.view.layer
+        videoPreviewLayer?.frame = self.videoView.bounds
+        self.session!.startRunning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Setup camera
+        session = AVCaptureSession()
+        session!.sessionPreset = AVCaptureSessionPresetPhoto
+        let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .front)!
+        let devices = videoDeviceDiscoverySession.devices!
+        // let device  = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo)
+        var frontCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        
+        for element in devices {
+            let element = element
+            if element.position == AVCaptureDevicePosition.front {
+                frontCamera = element
+                break
+            }
+        }
+        var error: NSError?
+        var input: AVCaptureDeviceInput!
+        do {
+            input = try AVCaptureDeviceInput(device: frontCamera)
+        } catch let error1 as NSError {
+            error = error1
+            input = nil
+            print(error!.localizedDescription)
+        }
+        
+        if error == nil && session!.canAddInput(input) {
+            session!.addInput(input)
+            // ...
+            stillImageOutput = AVCapturePhotoOutput()
+            
+            if session!.canAddOutput(stillImageOutput) {
+                session!.addOutput(stillImageOutput)
+                // ...
+                // Configure the Live Preview
+                videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
+                videoPreviewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
+                videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+                self.videoView.layer.addSublayer(videoPreviewLayer!)
+                self.videoView.addBlurEffect()
+            }
+        }
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        // If user is logged in
+        
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                print("W")
+            } else {
+                self.viewController.snapController = self
+                let navController = UINavigationController(rootViewController: self.viewController)
+                self.present(navController, animated: true, completion: nil)
+            }
+        }
     }
     
     func goToSettings() {
@@ -84,7 +409,7 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
             width: self.view.bounds.width,
             height: self.view.bounds.height
         )
-
+        
         scrollView.frame = CGRect(x: view.x,
                                   y: view.y,
                                   width: view.width,
@@ -135,14 +460,171 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
         self.initialContentOffset = scrollView.contentOffset
     }
     
+    func fadeFromColor(toColor: UIColor, fromColor: UIColor, withPercentage: CGFloat) -> UIColor {
+        
+        var fromRed: CGFloat = 0.0
+        var fromGreen: CGFloat = 0.0
+        var fromBlue: CGFloat = 0.0
+        var fromAlpha: CGFloat = 0.0
+        
+        fromColor.getRed(&fromRed, green: &fromGreen, blue: &fromBlue, alpha: &fromAlpha)
+        
+        var toRed: CGFloat = 0.0
+        var toGreen: CGFloat = 0.0
+        var toBlue: CGFloat = 0.0
+        var toAlpha: CGFloat = 0.0
+        
+        toColor.getRed(&toRed, green: &toGreen, blue: &toBlue, alpha: &toAlpha)
+        
+        //calculate the actual RGBA values of the fade colour
+        let red = (toRed - fromRed) * withPercentage + fromRed;
+        let green = (toGreen - fromGreen) * withPercentage + fromGreen;
+        let blue = (toBlue - fromBlue) * withPercentage + fromBlue;
+        let alpha = (toAlpha - fromAlpha) * withPercentage + fromAlpha;
+        
+        // return the fade colour
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    func blend(from: UIColor, to: UIColor, percent: Double) -> UIColor {
+        var fR : CGFloat = 0.0
+        var fG : CGFloat = 0.0
+        var fB : CGFloat = 0.0
+        var tR : CGFloat = 0.0
+        var tG : CGFloat = 0.0
+        var tB : CGFloat = 0.0
+        
+        from.getRed(&fR, green: &fG, blue: &fB, alpha: nil)
+        to.getRed(&tR, green: &tG, blue: &tB, alpha: nil)
+        
+        let dR = tR - fR
+        let dG = tG - fG
+        let dB = tB - fB
+        
+        let rR = fR + dR * CGFloat(percent)
+        let rG = fG + dG * CGFloat(percent)
+        let rB = fB + dB * CGFloat(percent)
+        
+        return UIColor(red: rR, green: rG, blue: rB, alpha: 1.0)
+    }
+    
+    // Pass in the scroll percentage to get the appropriate color
+    func scrollColor(percent: Double, startColor: UIColor) -> UIColor {
+        var start : UIColor
+        var end : UIColor
+        var perc = percent
+        if percent < 0.5 {
+            // If the scroll percentage is 0.0..<0.5 blend between yellow and green
+            start = startColor
+            end = UIColor.black
+        } else {
+            // If the scroll percentage is 0.5..1.0 blend between clear to black
+            start = startColor
+            end = UIColor.black
+            perc -= 0.5
+        }
+        
+        return blend(from: start, to: end, percent: perc * 2.0)
+    }
+    var colorArray = [UIColor.black, UIColor.clear, UIColor.white]
+    var firstNumber: Int?
+    var secondNumber: Int?
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // horizontal
+        let maximumHorizontalOffset = scrollView.contentSize.width - scrollView.frame.width
+        let currentHorizontalOffset = scrollView.contentOffset.x
+        //let currentVerticalOffset   = scrollView.contentOffset.y
+        // percentages
+        let percentageHorizontalOffset = currentHorizontalOffset / maximumHorizontalOffset
+        //   print("content offfset: \(percentageHorizontalOffset)")
+        //   print (currentHorizontalOffset)
+        
+        if self.firstNumber != nil {
+            self.secondNumber = Int(currentHorizontalOffset)
+            
+            if self.firstNumber! < self.secondNumber! {
+                self.firstNumber = secondNumber
+                
+                if percentageHorizontalOffset == 0.5 {
+                    if beginSearchLabel.text == "Cancel" {
+                        self.beginSearchLabelBottomAnchor?.constant = 210
+                    } else {
+                        self.beginSearchLabelBottomAnchor?.constant = -10
+                    }
+                }
+            
+                if percentageHorizontalOffset >= 0.45 && percentageHorizontalOffset < 6.0 {
+                    UIView.animate(withDuration: 0.05, animations: {
+                        self.profileImageIcon.alpha = percentageHorizontalOffset - 0.5
+                    })
+                }
+                
+            } else if self.firstNumber! > self.secondNumber! {
+                
+                if percentageHorizontalOffset < 0.5 {
+                    self.beginSearchLabel.alpha = percentageHorizontalOffset * 2
+                }
+                if percentageHorizontalOffset < 0.45 {
+                    self.beginSearchLabelBottomAnchor?.constant += 1
+                }
+                if percentageHorizontalOffset < 0.45 {
+                    
+                    self.searchingLabel.alpha = percentageHorizontalOffset * 2
+                }
+                self.firstNumber = secondNumber
+            }
+        } else {
+            self.firstNumber = Int(currentHorizontalOffset)
+        }
+        
+        if percentageHorizontalOffset < 0.5 {
+            
+            self.scrollView.backgroundColor = self.fadeFromColor(toColor: self.colorArray[1], fromColor: self.colorArray[0], withPercentage: percentageHorizontalOffset * 3)
+            
+            self.profileImageLeftAnchor?.constant = currentHorizontalOffset + 145
+            self.searchingLabelLeftAnchor?.constant =  currentHorizontalOffset
+           // self.beginSearchLeftAnchor?.constant = currentHorizontalOffset
+            self.loadingViewLeftAnchor?.constant = currentHorizontalOffset + 115
+            //  self.matchesTextLeftAnchor?.constant = currentHorizontalOffset
+            
+            self.profileImageIcon.alpha = 0.09 / (percentageHorizontalOffset / 2)
+            self.topLineView.alpha = percentageHorizontalOffset
+            self.searchingLabel.alpha = percentageHorizontalOffset * 2
+        }
+        
+        if percentageHorizontalOffset >= 0.5 {
+            UIView.animate(withDuration: 1.0, animations: {
+                self.beginSearchLabel.alpha = 1
+            })
+            self.messageImageIcon.alpha = percentageHorizontalOffset
+            self.profileImageIcon.alpha = percentageHorizontalOffset - 1
+            self.messageImageLeftAnchor?.constant = currentHorizontalOffset + 145
+            //    self.beginSearchLabel.alpha = percentageHorizontalOffset + 0.2
+            //    self.searchingLabel.alpha = percentageHorizontalOffset + 0.2
+        }
+        
+        if percentageHorizontalOffset < 0.7 && percentageHorizontalOffset >= 0.5 {
+            self.messageImageIcon.alpha = percentageHorizontalOffset - 0.5
+        }
+        
+        if percentageHorizontalOffset < 0.8 && percentageHorizontalOffset > 0.5 {
+            //  self.scrollView.backgroundColor = .clear
+            //  self.topLineView.backgroundColor = .white
+        }
+        
+        if percentageHorizontalOffset > 0.666667 {
+            
+            self.topLineView.backgroundColor = self.scrollColor(percent: Double(percentageHorizontalOffset), startColor: .white)
+            
+            self.scrollView.backgroundColor  = self.fadeFromColor(toColor: self.colorArray[0], fromColor: self.colorArray[1], withPercentage: (percentageHorizontalOffset - 0.666667) * 3)
+        }
+        
         if delegate != nil && !delegate!.outerScrollViewShouldScroll() && !directionLockDisabled {
             let newOffset = CGPoint(x: self.initialContentOffset.x, y: self.initialContentOffset.y)
-        
             // Setting the new offset to the scrollView makes it behave like a proper
             // directional lock, that allows you to scroll in only one direction at any given time
             self.scrollView!.setContentOffset(newOffset, animated:  false)
         }
     }
-    
 }

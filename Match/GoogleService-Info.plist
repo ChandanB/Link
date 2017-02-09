@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>189072412846-3plkq1nq496pi3rbnntjhf45p8rtmcu7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.189072412846-3plkq1nq496pi3rbnntjhf45p8rtmcu7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCvDF455EB26d7ME67de4-gXuPEvqlopTo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>189072412846</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.TurnApp.Link</string>
+	<key>PROJECT_ID</key>
+	<string>link-75fed</string>
+	<key>STORAGE_BUCKET</key>
+	<string>link-75fed.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:189072412846:ios:7583492ecb55e8c3</string>
+	<key>DATABASE_URL</key>
+	<string>https://link-75fed.firebaseio.com</string>
+</dict>
+</plist>

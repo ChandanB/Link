@@ -72,7 +72,7 @@ extension UIView {
     }
     
     func addLightBlurEffect() {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         
@@ -80,17 +80,14 @@ extension UIView {
         self.addSubview(blurEffectView)
     }
 
-    func addRihannaBackground() {
+    func addDarkBlurEffect() {
         // screen width and height:
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
+        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
         
-        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        imageViewBackground.image = UIImage(named: "Rihanna Image")
-        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
-        
-        self.addSubview(imageViewBackground)
-        self.sendSubview(toBack: imageViewBackground)
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
     }
     
 }
