@@ -41,13 +41,12 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 130, height: 130))
-    //  let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = (imageView.frame.size.height/2)
         imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 2
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
         return imageView
@@ -104,8 +103,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "Helvetica-Light", size: 30)
-        button.addTarget(self, action: #selector(handleSelectProfileImageView), for: .touchUpInside)
-
         return button
     }()
     
@@ -122,7 +119,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
                     return
                 }
                 
-            FIRDatabase.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                FIRDatabase.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                     if let dictionary = snapshot.value as? [String: AnyObject] {
                         self.user.setValuesForKeys(dictionary)
                         self.setupUser()
@@ -151,7 +148,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
         self.setupBioLabel()
         self.setupInterestButton()
         self.setupProfileImageView()
-
+        
         if let profileImageUrl = user.profileImageUrl {
             self.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
             self.imageViewBackground.loadImageUsingCacheWithUrlString(profileImageUrl)
@@ -175,7 +172,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
     
     func setupProfileImageView() {
         // x, y, width, height
-        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(doNothing)))
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         profileImageView.bottomAnchor.constraint(equalTo: usernameLabel.topAnchor, constant: -12).isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
@@ -199,15 +196,9 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate,UINav
         
         editButtonText.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34).isActive = true
         editButtonText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        editButtonText.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        editButtonText.heightAnchor.constraint(equalToConstant: 40).isActive = true
         editButtonText.widthAnchor.constraint(equalToConstant: 60).isActive = true
     }
-    
-    
-    func doNothing() {
-        
-    }
-    
 }
 
 class ProfileViewController: UIViewController {
@@ -258,13 +249,22 @@ class ProfileViewController: UIViewController {
     
     func setupViewControllerView() {
         view.addSubview(viewController.view)
+        let screenSize: CGRect = UIScreen.main.bounds
+        print(screenSize.width)
         
-        viewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
-        viewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -34).isActive = true
-        viewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -2).isActive = true
-        viewController.view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 1).isActive = true
-        
-        viewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -70).isActive = true
+        if screenSize.width > 320.0 {
+            viewController.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 64).isActive = true
+            viewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: -34).isActive = true
+            viewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -8).isActive = true
+            viewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 4).isActive = true
+            viewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: -70).isActive = true
+        } else {
+            viewController.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 64).isActive = true
+            viewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: -34).isActive = true
+            viewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -2).isActive = true
+            viewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 1).isActive = true
+            viewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: -70).isActive = true
+        }
     }
 }
 

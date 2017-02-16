@@ -17,7 +17,7 @@ protocol SnapContainerViewControllerDelegate {
 }
 
 class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVActivityIndicatorViewable {
-    var startColor = UIColor.clear
+    var startColor: UIColor = .clear
     var context = CIContext(options: nil)
     var loading: NVActivityIndicatorView?
     var searching: SearchingEnum?
@@ -124,6 +124,13 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         return view
     }()
     
+    let allViewsView: UIView = {
+        let view = UIView()
+        // UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let messageImageIcon: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(named: "Messaging Image Shape")
@@ -140,15 +147,19 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         return imageView
     }()
     
+    var screenSize: CGRect?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
+        self.screenSize = UIScreen.main.bounds
         self.profileImageIcon.alpha = 0
         self.messageImageIcon.alpha = 0
         searching = SearchingEnum.notSearching
         setupVerticalScrollView()
         setupHorizontalScrollView()
         navBar?.isHidden = true
+        addViewstoView()
         setupBackgroundView()
         makeLoadingView()
         setupbeginSearchLabel()
@@ -232,21 +243,23 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
     var matchesTextLeftAnchor: NSLayoutConstraint?
     var matchesTextBottomAnchor: NSLayoutConstraint?
     
+    func addViewstoView() {
+        allViewsView.addSubview(loadingView)
+        allViewsView.addSubview(searchingLabel)
+        allViewsView.addSubview(topView)
+        allViewsView.addSubview(topLineView)
+    }
+    
     func setupbeginSearchLabel() {
         
+        view.addSubview(beginSearchLabel)
         loadingView.addSubview(loading!)
-        scrollView.addSubview(beginSearchLabel)
-        scrollView.addSubview(loadingView)
-        scrollView.sendSubview(toBack: loadingView)
-        scrollView.addSubview(searchingLabel)
-        scrollView.sendSubview(toBack: searchingLabel)
-        scrollView.addSubview(topView)
-        scrollView.addSubview(topLineView)
-        scrollView.sendSubview(toBack: topLineView)
-        topView.addSubview(profileImageIcon)
-        topView.addSubview(messageImageIcon)
+        scrollView.addSubview(allViewsView)
+        scrollView.sendSubview(toBack: allViewsView)
         scrollView.addSubview(matchesTextLabel)
         scrollView.sendSubview(toBack: matchesTextLabel)
+        topView.addSubview(profileImageIcon)
+        topView.addSubview(messageImageIcon)
         topView.addSubview(settingsButton)
         settingsButton.isHidden = true
         
@@ -254,18 +267,16 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
             
-            self.loadingViewLeftAnchor = self.loadingView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 430)
+            self.loadingViewLeftAnchor = self.loadingView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 430)
             self.loadingView.heightAnchor.constraint(equalToConstant: 100).isActive = true
             self.loadingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            self.loadingView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
-            self.loadingView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor).isActive = true
-            self.loadingViewLeftAnchor?.isActive = true
+            self.loadingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+            self.loadingView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
             
-            self.topView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 20).isActive = true
+            self.topView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true
             self.topView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-            self.topView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor).isActive = true
-            self.topView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor, constant: 320).isActive = true
-            
+            self.topView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+            self.topView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 320).isActive = true
             
             self.matchesTextLabel.heightAnchor.constraint(equalToConstant: 44).isActive = true
             self.matchesTextLabel.widthAnchor.constraint(equalTo: self.topView.widthAnchor).isActive = true
@@ -275,7 +286,7 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
             self.matchesTextLeftAnchor?.isActive = true
             
             self.topLineView.bottomAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: 1).isActive = true
-            self.topLineView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor, constant: 320).isActive = true
+            self.topLineView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 320).isActive = true
             self.topLineView.widthAnchor.constraint(equalToConstant: 1280).isActive = true
             self.topLineView.heightAnchor.constraint(equalToConstant: 0.45).isActive = true
             
@@ -291,18 +302,19 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
             self.settingsButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
             
             self.beginSearchLabelBottomAnchor = self.beginSearchLabel.bottomAnchor.constraint(equalTo: (self.loadingView.bottomAnchor), constant: -10)
-            self.beginSearchLeftAnchor = self.beginSearchLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 320)
+            self.beginSearchLeftAnchor = self.beginSearchLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 380)
+            self.beginSearchLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
             self.beginSearchLabel.widthAnchor.constraint(equalToConstant: 316).isActive = true
             self.beginSearchLabel.heightAnchor.constraint(equalToConstant: 61.39).isActive = true
             self.beginSearchLabelBottomAnchor?.isActive = true
-            self.beginSearchLeftAnchor?.isActive = true
             
             self.searchingLabelBottomAnchor = self.searchingLabel.bottomAnchor.constraint(equalTo: (self.loadingView.bottomAnchor), constant: 0)
             self.searchingLabelLeftAnchor = self.searchingLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 320)
             self.searchingLabel.widthAnchor.constraint(equalToConstant: 316).isActive = true
             self.searchingLabel.heightAnchor.constraint(equalToConstant: 61.39).isActive = true
+            self.searchingLabel.centerXAnchor.constraint(equalTo: self.loadingView.centerXAnchor).isActive = true
             self.searchingLabelBottomAnchor?.isActive = true
-            self.searchingLabelLeftAnchor?.isActive = true
+            //  self.searchingLabelLeftAnchor?.isActive = true
             
             self.view.layoutIfNeeded()
         })
@@ -334,7 +346,6 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         session!.sessionPreset = AVCaptureSessionPresetPhoto
         let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .front)!
         let devices = videoDeviceDiscoverySession.devices!
-        // let device  = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo)
         var frontCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         for element in devices {
@@ -374,7 +385,6 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
     
     func checkIfUserIsLoggedIn() {
         // If user is logged in
-        
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if user != nil {
                 print("W")
@@ -386,6 +396,19 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         }
     }
     
+    func handleLogout() {
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
+        let viewController = ViewController()
+        viewController.snapController = SnapContainerViewController()
+        let navController = UINavigationController(rootViewController: viewController)
+        present(navController, animated: true, completion: nil)
+    }
+
     func goToSettings() {
         
     }
@@ -532,6 +555,7 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // horizontal
+        
         let maximumHorizontalOffset = scrollView.contentSize.width - scrollView.frame.width
         let currentHorizontalOffset = scrollView.contentOffset.x
         //let currentVerticalOffset   = scrollView.contentOffset.y
@@ -540,83 +564,68 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate, NVAct
         //   print("content offfset: \(percentageHorizontalOffset)")
         //   print (currentHorizontalOffset)
         
-        if self.firstNumber != nil {
-            self.secondNumber = Int(currentHorizontalOffset)
-            
-            if self.firstNumber! < self.secondNumber! {
-                self.firstNumber = secondNumber
-                
-                if percentageHorizontalOffset == 0.5 {
-                    if beginSearchLabel.text == "Cancel" {
-                        self.beginSearchLabelBottomAnchor?.constant = 210
-                    } else {
-                        self.beginSearchLabelBottomAnchor?.constant = -10
-                    }
-                }
-            
-                if percentageHorizontalOffset >= 0.45 && percentageHorizontalOffset < 6.0 {
-                    UIView.animate(withDuration: 0.05, animations: {
-                        self.profileImageIcon.alpha = percentageHorizontalOffset - 0.5
-                    })
-                }
-                
-            } else if self.firstNumber! > self.secondNumber! {
-                
-                if percentageHorizontalOffset < 0.5 {
-                    self.beginSearchLabel.alpha = percentageHorizontalOffset * 2
-                }
-                if percentageHorizontalOffset < 0.45 {
-                    self.beginSearchLabelBottomAnchor?.constant += 1
-                }
-                if percentageHorizontalOffset < 0.45 {
-                    
-                    self.searchingLabel.alpha = percentageHorizontalOffset * 2
-                }
-                self.firstNumber = secondNumber
+        if percentageHorizontalOffset >= 0.45 && percentageHorizontalOffset < 6.0 {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.profileImageIcon.alpha = percentageHorizontalOffset - 0.5
+                self.beginSearchLabel.alpha = 0
+            })
+        }
+        
+        if percentageHorizontalOffset < 0.45 {
+            self.searchingLabel.alpha = percentageHorizontalOffset * 2
+        }
+        
+        if percentageHorizontalOffset == 0.5 {
+            if beginSearchLabel.text == "Cancel" {
+                self.beginSearchLabelBottomAnchor?.constant = 210
+            } else {
+                self.beginSearchLabelBottomAnchor?.constant = -10
             }
-        } else {
-            self.firstNumber = Int(currentHorizontalOffset)
+        }
+
+        if percentageHorizontalOffset == 0.5 {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.beginSearchLabel.alpha = 1
+            })
         }
         
         if percentageHorizontalOffset < 0.5 {
-            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.beginSearchLabel.alpha = 0
+            })
             self.scrollView.backgroundColor = self.fadeFromColor(toColor: self.colorArray[1], fromColor: self.colorArray[0], withPercentage: percentageHorizontalOffset * 3)
-            
+           if screenSize?.width == 320.0 {
             self.profileImageLeftAnchor?.constant = currentHorizontalOffset + 145
+            } else {
+                self.profileImageLeftAnchor?.constant = currentHorizontalOffset + 190
+            }
             self.searchingLabelLeftAnchor?.constant =  currentHorizontalOffset
-           // self.beginSearchLeftAnchor?.constant = currentHorizontalOffset
             self.loadingViewLeftAnchor?.constant = currentHorizontalOffset + 115
-            //  self.matchesTextLeftAnchor?.constant = currentHorizontalOffset
-            
             self.profileImageIcon.alpha = 0.09 / (percentageHorizontalOffset / 2)
             self.topLineView.alpha = percentageHorizontalOffset
             self.searchingLabel.alpha = percentageHorizontalOffset * 2
         }
         
         if percentageHorizontalOffset >= 0.5 {
-            UIView.animate(withDuration: 1.0, animations: {
-                self.beginSearchLabel.alpha = 1
-            })
             self.messageImageIcon.alpha = percentageHorizontalOffset
             self.profileImageIcon.alpha = percentageHorizontalOffset - 1
+            if screenSize?.width == 320.0 {
             self.messageImageLeftAnchor?.constant = currentHorizontalOffset + 145
-            //    self.beginSearchLabel.alpha = percentageHorizontalOffset + 0.2
-            //    self.searchingLabel.alpha = percentageHorizontalOffset + 0.2
+            } else {
+            self.messageImageLeftAnchor?.constant = currentHorizontalOffset + 190
+            }
         }
         
         if percentageHorizontalOffset < 0.7 && percentageHorizontalOffset >= 0.5 {
             self.messageImageIcon.alpha = percentageHorizontalOffset - 0.5
         }
         
-        if percentageHorizontalOffset < 0.8 && percentageHorizontalOffset > 0.5 {
-            //  self.scrollView.backgroundColor = .clear
-            //  self.topLineView.backgroundColor = .white
-        }
-        
         if percentageHorizontalOffset > 0.666667 {
+            UIView.animate(withDuration: 0.05, animations: {
+                self.profileImageIcon.alpha = 0
+            })
             
             self.topLineView.backgroundColor = self.scrollColor(percent: Double(percentageHorizontalOffset), startColor: .white)
-            
             self.scrollView.backgroundColor  = self.fadeFromColor(toColor: self.colorArray[0], fromColor: self.colorArray[1], withPercentage: (percentageHorizontalOffset - 0.666667) * 3)
         }
         
