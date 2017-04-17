@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0B18D61E89CE5F007E53AD /* ProfileViewControllerExpanse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */; };
+		1F0B18D81E89D2F8007E53AD /* MatchesExpanse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B18D71E89D2F8007E53AD /* MatchesExpanse.swift */; };
 		1F62F8011E4648AD00D44A76 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F8001E4648AD00D44A76 /* ChatLogController.swift */; };
 		1F62F8031E464D2E00D44A76 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F8021E464D2E00D44A76 /* Message.swift */; };
 		1F62F8051E464D3E00D44A76 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F8041E464D3E00D44A76 /* User.swift */; };
@@ -19,23 +21,54 @@
 		1F62F9FD1E4668C900D44A76 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F9FC1E4668C900D44A76 /* LoginViewController.swift */; };
 		1F62F9FF1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F9FE1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift */; };
 		1F62FA081E498DB900D44A76 /* Allura-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F62FA071E498DB100D44A76 /* Allura-Regular.otf */; };
-		1F62FA101E4A647600D44A76 /* ProfileControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62FA0F1E4A647600D44A76 /* ProfileControllerExt.swift */; };
+		1F62FA101E4A647600D44A76 /* ProfileControllerCardExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62FA0F1E4A647600D44A76 /* ProfileControllerCardExt.swift */; };
+		1F6A167B1E92D63D005BBF2F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A167A1E92D63D005BBF2F /* ChatViewController.swift */; };
 		1F7969FA1E3F2BCA004F2A82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7969F91E3F2BCA004F2A82 /* AppDelegate.swift */; };
-		1F7969FF1E3F2BCA004F2A82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7969FD1E3F2BCA004F2A82 /* Main.storyboard */; };
 		1F796A011E3F2BCA004F2A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F796A001E3F2BCA004F2A82 /* Assets.xcassets */; };
 		1F796A041E3F2BCA004F2A82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F796A021E3F2BCA004F2A82 /* LaunchScreen.storyboard */; };
-		1F796A0C1E3F399C004F2A82 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A0B1E3F399C004F2A82 /* ProfileViewController.swift */; };
-		1F796A0F1E3FB764004F2A82 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A0E1E3FB764004F2A82 /* SearchViewController.swift */; };
-		1F796A111E3FB7A0004F2A82 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A101E3FB7A0004F2A82 /* MatchesViewController.swift */; };
+		1F796A0C1E3F399C004F2A82 /* ProfileControllerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A0B1E3F399C004F2A82 /* ProfileControllerCard.swift */; };
+		1F796A111E3FB7A0004F2A82 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A101E3FB7A0004F2A82 /* MessagesTableViewController.swift */; };
 		1F796A131E3FB887004F2A82 /* HomeViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A121E3FB887004F2A82 /* HomeViewControllerExt.swift */; };
 		1F796A161E3FB9E1004F2A82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A151E3FB9E1004F2A82 /* Extensions.swift */; };
-		1FA1D72D1E451D8500A7F7AA /* SnapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1D72B1E451D8500A7F7AA /* SnapContainerViewController.swift */; };
+		1F8815C31E95D219004E9613 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815C21E95D219004E9613 /* ViewController.swift */; };
+		1F8815C51E95D4BD004E9613 /* TwilioVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */; };
+		1F8815C61E95D4BD004E9613 /* TwilioVideo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F8815C91E95D4E2004E9613 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815C81E95D4E2004E9613 /* AudioToolbox.framework */; };
+		1F8815CB1E95D4E9004E9613 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815CA1E95D4E9004E9613 /* VideoToolbox.framework */; };
+		1F8815CD1E95D4F2004E9613 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815CC1E95D4F2004E9613 /* AVFoundation.framework */; };
+		1F8815CF1E95D4FB004E9613 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815CE1E95D4FB004E9613 /* CoreTelephony.framework */; };
+		1F8815D11E95D504004E9613 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815D01E95D504004E9613 /* GLKit.framework */; };
+		1F8815D31E95D50D004E9613 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815D21E95D50D004E9613 /* CoreMedia.framework */; };
+		1F8815D51E95D516004E9613 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815D41E95D516004E9613 /* SystemConfiguration.framework */; };
+		1F8815D71E95D52C004E9613 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815D61E95D52C004E9613 /* libc++.tbd */; };
+		1F8815DA1E95D754004E9613 /* ViewController+CallKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815D91E95D754004E9613 /* ViewController+CallKit.swift */; };
+		1F8815DC1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */; };
+		1F8815DE1E95D76D004E9613 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815DD1E95D76D004E9613 /* Utils.swift */; };
+		1F8815E01E95D7E0004E9613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8815DF1E95D7E0004E9613 /* Main.storyboard */; };
+		1F8815E41E962BBE004E9613 /* DuhViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815E31E962BBE004E9613 /* DuhViewController.swift */; };
+		1FA1D72D1E451D8500A7F7AA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */; };
 		1FA1D72E1E451D8500A7F7AA /* VerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */; };
 		1FF74FD71E44758E008337FD /* SearchingEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF74FD61E44758E008337FD /* SearchingEnum.swift */; };
 		40CD91084808EF367C341B16 /* Pods_Link.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6968AF22EA5B9BAA3B6F983 /* Pods_Link.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1F8815C71E95D4BD004E9613 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1F8815C61E95D4BD004E9613 /* TwilioVideo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerExpanse.swift; sourceTree = "<group>"; };
+		1F0B18D71E89D2F8007E53AD /* MatchesExpanse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesExpanse.swift; sourceTree = "<group>"; };
 		1F62F8001E4648AD00D44A76 /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		1F62F8021E464D2E00D44A76 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1F62F8041E464D3E00D44A76 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -49,19 +82,34 @@
 		1F62F9FC1E4668C900D44A76 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F62F9FE1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewControllerExt+Handlers.swift"; sourceTree = "<group>"; };
 		1F62FA071E498DB100D44A76 /* Allura-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Allura-Regular.otf"; sourceTree = "<group>"; };
-		1F62FA0F1E4A647600D44A76 /* ProfileControllerExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileControllerExt.swift; sourceTree = "<group>"; };
+		1F62FA0F1E4A647600D44A76 /* ProfileControllerCardExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileControllerCardExt.swift; sourceTree = "<group>"; };
+		1F6A167A1E92D63D005BBF2F /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		1F7969F61E3F2BCA004F2A82 /* Link.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Link.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7969F91E3F2BCA004F2A82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F7969FE1E3F2BCA004F2A82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F796A001E3F2BCA004F2A82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F796A031E3F2BCA004F2A82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F796A051E3F2BCA004F2A82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F796A0B1E3F399C004F2A82 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		1F796A0E1E3FB764004F2A82 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		1F796A101E3FB7A0004F2A82 /* MatchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
+		1F796A0B1E3F399C004F2A82 /* ProfileControllerCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileControllerCard.swift; sourceTree = "<group>"; };
+		1F796A101E3FB7A0004F2A82 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		1F796A121E3FB887004F2A82 /* HomeViewControllerExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewControllerExt.swift; sourceTree = "<group>"; };
 		1F796A151E3FB9E1004F2A82 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1FA1D72B1E451D8500A7F7AA /* SnapContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapContainerViewController.swift; sourceTree = "<group>"; };
+		1F8815961E958217004E9613 /* Link-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Link-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F8815C21E95D219004E9613 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwilioVideo.framework; sourceTree = "<group>"; };
+		1F8815C81E95D4E2004E9613 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1F8815CA1E95D4E9004E9613 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		1F8815CC1E95D4F2004E9613 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1F8815CE1E95D4FB004E9613 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1F8815D01E95D504004E9613 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		1F8815D21E95D50D004E9613 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		1F8815D41E95D516004E9613 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1F8815D61E95D52C004E9613 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		1F8815D91E95D754004E9613 /* ViewController+CallKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+CallKit.swift"; path = "../../../video-quickstart-swift-master/video-quickstart-swift-master/VideoCallKitQuickStart/ViewController+CallKit.swift"; sourceTree = "<group>"; };
+		1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+SimulateIncomingCall.swift"; path = "../../../video-quickstart-swift-master/video-quickstart-swift-master/VideoCallKitQuickStart/ViewController+SimulateIncomingCall.swift"; sourceTree = "<group>"; };
+		1F8815DD1E95D76D004E9613 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		1F8815DF1E95D7E0004E9613 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1F8815E31E962BBE004E9613 /* DuhViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuhViewController.swift; sourceTree = "<group>"; };
+		1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalScrollViewController.swift; sourceTree = "<group>"; };
 		1FF74FD61E44758E008337FD /* SearchingEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingEnum.swift; sourceTree = "<group>"; };
 		5B6FD5D64F991A4BCC2FC710 /* Pods-Link.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Link.release.xcconfig"; path = "Pods/Target Support Files/Pods-Link/Pods-Link.release.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +122,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8815D71E95D52C004E9613 /* libc++.tbd in Frameworks */,
+				1F8815D51E95D516004E9613 /* SystemConfiguration.framework in Frameworks */,
+				1F8815D31E95D50D004E9613 /* CoreMedia.framework in Frameworks */,
+				1F8815D11E95D504004E9613 /* GLKit.framework in Frameworks */,
+				1F8815CF1E95D4FB004E9613 /* CoreTelephony.framework in Frameworks */,
+				1F8815CD1E95D4F2004E9613 /* AVFoundation.framework in Frameworks */,
+				1F8815CB1E95D4E9004E9613 /* VideoToolbox.framework in Frameworks */,
+				1F8815C91E95D4E2004E9613 /* AudioToolbox.framework in Frameworks */,
+				1F8815C51E95D4BD004E9613 /* TwilioVideo.framework in Frameworks */,
 				40CD91084808EF367C341B16 /* Pods_Link.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,7 +152,6 @@
 			children = (
 				1F62F8061E464D6500D44A76 /* UserCell.swift */,
 				1F62F80A1E464DFD00D44A76 /* ChatMessageCell.swift */,
-				1F62F8081E464DD700D44A76 /* ChatInputContainerView.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -108,9 +164,32 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		1F6A16771E92D5C6005BBF2F /* LEFT VIEWS */ = {
+			isa = PBXGroup;
+			children = (
+				1F62FA0F1E4A647600D44A76 /* ProfileControllerCardExt.swift */,
+				1F796A0B1E3F399C004F2A82 /* ProfileControllerCard.swift */,
+				1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */,
+			);
+			name = "LEFT VIEWS";
+			sourceTree = "<group>";
+		};
+		1F6A16791E92D5EB005BBF2F /* RIGHT VIEWS */ = {
+			isa = PBXGroup;
+			children = (
+				1F0B18D71E89D2F8007E53AD /* MatchesExpanse.swift */,
+				1F62F80E1E464EBE00D44A76 /* MessagingExtension.swift */,
+				1F62F8001E4648AD00D44A76 /* ChatLogController.swift */,
+				1F796A101E3FB7A0004F2A82 /* MessagesTableViewController.swift */,
+				1F62F8081E464DD700D44A76 /* ChatInputContainerView.swift */,
+			);
+			name = "RIGHT VIEWS";
+			sourceTree = "<group>";
+		};
 		1F7969ED1E3F2BCA004F2A82 = {
 			isa = PBXGroup;
 			children = (
+				1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */,
 				1F62F9FB1E46660500D44A76 /* Link.entitlements */,
 				1F7969F81E3F2BCA004F2A82 /* Match */,
 				1F7969F71E3F2BCA004F2A82 /* Products */,
@@ -147,7 +226,7 @@
 				1F62F8101E465B9000D44A76 /* GoogleService-Info.plist */,
 				1F62FA071E498DB100D44A76 /* Allura-Regular.otf */,
 				1F796A051E3F2BCA004F2A82 /* Info.plist */,
-				1F7969FD1E3F2BCA004F2A82 /* Main.storyboard */,
+				1F8815DF1E95D7E0004E9613 /* Main.storyboard */,
 				1F796A021E3F2BCA004F2A82 /* LaunchScreen.storyboard */,
 				1F7969F91E3F2BCA004F2A82 /* AppDelegate.swift */,
 			);
@@ -158,9 +237,7 @@
 		1F796A141E3FB88E004F2A82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1F62FA0F1E4A647600D44A76 /* ProfileControllerExt.swift */,
 				1F62F9FE1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift */,
-				1F62F80E1E464EBE00D44A76 /* MessagingExtension.swift */,
 				1F796A121E3FB887004F2A82 /* HomeViewControllerExt.swift */,
 				1F796A151E3FB9E1004F2A82 /* Extensions.swift */,
 				1F62F80C1E464EAC00D44A76 /* imageHandle.swift */,
@@ -171,13 +248,18 @@
 		1FA1D7261E4515A700A7F7AA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1FA1D72B1E451D8500A7F7AA /* SnapContainerViewController.swift */,
-				1F796A0B1E3F399C004F2A82 /* ProfileViewController.swift */,
-				1F796A0E1E3FB764004F2A82 /* SearchViewController.swift */,
-				1F796A101E3FB7A0004F2A82 /* MatchesViewController.swift */,
-				1F62F8001E4648AD00D44A76 /* ChatLogController.swift */,
-				1F62F9FC1E4668C900D44A76 /* LoginViewController.swift */,
+				1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */,
+				1F6A16791E92D5EB005BBF2F /* RIGHT VIEWS */,
+				1F6A16771E92D5C6005BBF2F /* LEFT VIEWS */,
+				1F6A167A1E92D63D005BBF2F /* ChatViewController.swift */,
 				1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */,
+				1F62F9FC1E4668C900D44A76 /* LoginViewController.swift */,
+				1F8815961E958217004E9613 /* Link-Bridging-Header.h */,
+				1F8815C21E95D219004E9613 /* ViewController.swift */,
+				1F8815D91E95D754004E9613 /* ViewController+CallKit.swift */,
+				1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */,
+				1F8815DD1E95D76D004E9613 /* Utils.swift */,
+				1F8815E31E962BBE004E9613 /* DuhViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -202,6 +284,14 @@
 		B325706C8E4E3FD73D6A9457 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F8815D61E95D52C004E9613 /* libc++.tbd */,
+				1F8815D41E95D516004E9613 /* SystemConfiguration.framework */,
+				1F8815D21E95D50D004E9613 /* CoreMedia.framework */,
+				1F8815D01E95D504004E9613 /* GLKit.framework */,
+				1F8815CE1E95D4FB004E9613 /* CoreTelephony.framework */,
+				1F8815CC1E95D4F2004E9613 /* AVFoundation.framework */,
+				1F8815CA1E95D4E9004E9613 /* VideoToolbox.framework */,
+				1F8815C81E95D4E2004E9613 /* AudioToolbox.framework */,
 				E6968AF22EA5B9BAA3B6F983 /* Pods_Link.framework */,
 			);
 			name = Frameworks;
@@ -220,6 +310,8 @@
 				1F7969F41E3F2BCA004F2A82 /* Resources */,
 				68CD21A8071FF6EC97E106AA /* [CP] Embed Pods Frameworks */,
 				6B8B4756F3C2803B92B4C397 /* [CP] Copy Pods Resources */,
+				1F8815C71E95D4BD004E9613 /* Embed Frameworks */,
+				1F8815D81E95D592004E9613 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -247,6 +339,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -277,9 +372,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F62FA081E498DB900D44A76 /* Allura-Regular.otf in Resources */,
+				1F8815E01E95D7E0004E9613 /* Main.storyboard in Resources */,
 				1F796A041E3F2BCA004F2A82 /* LaunchScreen.storyboard in Resources */,
 				1F796A011E3F2BCA004F2A82 /* Assets.xcassets in Resources */,
-				1F7969FF1E3F2BCA004F2A82 /* Main.storyboard in Resources */,
 				1F62F8111E465B9000D44A76 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,8 +394,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		1F8815D81E95D592004E9613 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework/remove_archs\"";
 		};
 		68CD21A8071FF6EC97E106AA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -341,23 +449,30 @@
 			files = (
 				1F62F8051E464D3E00D44A76 /* User.swift in Sources */,
 				1F62F9FD1E4668C900D44A76 /* LoginViewController.swift in Sources */,
+				1F6A167B1E92D63D005BBF2F /* ChatViewController.swift in Sources */,
 				1F62F80D1E464EAC00D44A76 /* imageHandle.swift in Sources */,
-				1F796A0C1E3F399C004F2A82 /* ProfileViewController.swift in Sources */,
-				1F796A111E3FB7A0004F2A82 /* MatchesViewController.swift in Sources */,
-				1F62FA101E4A647600D44A76 /* ProfileControllerExt.swift in Sources */,
+				1F796A0C1E3F399C004F2A82 /* ProfileControllerCard.swift in Sources */,
+				1F8815DE1E95D76D004E9613 /* Utils.swift in Sources */,
+				1F8815E41E962BBE004E9613 /* DuhViewController.swift in Sources */,
+				1F8815DA1E95D754004E9613 /* ViewController+CallKit.swift in Sources */,
+				1F8815DC1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift in Sources */,
+				1F796A111E3FB7A0004F2A82 /* MessagesTableViewController.swift in Sources */,
+				1F0B18D61E89CE5F007E53AD /* ProfileViewControllerExpanse.swift in Sources */,
+				1F62FA101E4A647600D44A76 /* ProfileControllerCardExt.swift in Sources */,
 				1F62F9FF1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift in Sources */,
 				1F796A131E3FB887004F2A82 /* HomeViewControllerExt.swift in Sources */,
 				1F62F80F1E464EBE00D44A76 /* MessagingExtension.swift in Sources */,
 				1F62F80B1E464DFD00D44A76 /* ChatMessageCell.swift in Sources */,
-				1F796A0F1E3FB764004F2A82 /* SearchViewController.swift in Sources */,
 				1F62F8071E464D6500D44A76 /* UserCell.swift in Sources */,
 				1F62F8011E4648AD00D44A76 /* ChatLogController.swift in Sources */,
-				1FA1D72D1E451D8500A7F7AA /* SnapContainerViewController.swift in Sources */,
+				1F8815C31E95D219004E9613 /* ViewController.swift in Sources */,
+				1FA1D72D1E451D8500A7F7AA /* ContainerViewController.swift in Sources */,
 				1F7969FA1E3F2BCA004F2A82 /* AppDelegate.swift in Sources */,
 				1FA1D72E1E451D8500A7F7AA /* VerticalScrollViewController.swift in Sources */,
 				1F62F8031E464D2E00D44A76 /* Message.swift in Sources */,
 				1F796A161E3FB9E1004F2A82 /* Extensions.swift in Sources */,
 				1F62F8091E464DD700D44A76 /* ChatInputContainerView.swift in Sources */,
+				1F0B18D81E89D2F8007E53AD /* MatchesExpanse.swift in Sources */,
 				1FF74FD71E44758E008337FD /* SearchingEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,14 +480,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1F7969FD1E3F2BCA004F2A82 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1F7969FE1E3F2BCA004F2A82 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1F796A021E3F2BCA004F2A82 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -481,6 +588,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Link.entitlements;
 				DEVELOPMENT_TEAM = 485WZNYRT6;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -493,6 +601,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TurnApp.Link;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Match/Link-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -503,6 +613,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Link.entitlements;
 				DEVELOPMENT_TEAM = 485WZNYRT6;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -515,6 +626,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TurnApp.Link;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Match/Link-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

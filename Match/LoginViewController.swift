@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  FirebaseSocialLogin
 //
-//  Created by Brian Voong on 10/21/16.
+//  Created by Chandan on 10/21/16.
 //  Copyright © 2016 Lets Build That App. All rights reserved.
 //
 
@@ -11,9 +11,9 @@ import FBSDKLoginKit
 import Firebase
 import AVFoundation
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
-    var snapController: SnapContainerViewController?
+    var snapController: ContainerViewController?
     
     lazy var facebookLoginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
@@ -190,11 +190,13 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 return
             }
             print("Successfully logged in with our user: ", user ?? "")
-            self.handleFacebookRegister(email: self.user.email!, name: self.user.name!, profileImageUrl: self.user.profileImageUrl!, uid: (user?.uid)!)
+            if let user = user {
+                self.handleFacebookRegister(email: self.user.email!, name: self.user.name!, profileImageUrl: self.user.profileImageUrl!, uid: (user.uid), gender: self.user.gender!)
+            }
         })
         
-       
-        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, email, picture.type(large)"]).start { (connection, result, err) in
+        
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, gender, name, email, picture.type(large)"]).start { (connection, result, err) in
             if err != nil {
                 print("Failed to start graph request:", err ?? "")
                 return
@@ -206,30 +208,26 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             if let dictionary = result as? [String: AnyObject] {
                 if (dictionary["email"] as? String) != nil {
                     // access individual value in dictionary
-                    print(dictionary["email"]!)
+                    print ("This is the entire Dictionary: \(dictionary)")
+                    self.user.gender = dictionary["gender"]! as? String
                     self.user.email = dictionary["email"]! as? String
-                   
-                    print(dictionary["id"]!)
                     self.user.id = dictionary["id"]! as? String
-                    
-                    print(dictionary["name"]!)
                     self.user.name = dictionary["name"]! as? String
                     
                     if let user_picture = dictionary["picture"] as? [String: AnyObject] {
                         if let data = user_picture["data"] as? [String: AnyObject] {
-                            print(data["url"]!)
                             self.user.profileImageUrl = data["url"]! as? String
                         }
                     }
                 }
                 
-//                for (key, value) in dictionary {
-//                    // access all key / value pairs in dictionary
-//                }
-//                
-//                if let nestedDictionary = dictionary["anotherKey"] as? [String: Any] {
-//                    // access nested dictionary values by key
-//                }
+                //                for (key, value) in dictionary {
+                //                    // access all key / value pairs in dictionary
+                //                }
+                //
+                //                if let nestedDictionary = dictionary["anotherKey"] as? [String: Any] {
+                //                    // access nested dictionary values by key
+                //                }
             }
             
             guard let uid = FIRAuth.auth()?.currentUser?.uid else {
@@ -240,7 +238,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     self.navigationItem.title = dictionary["name"] as? String
                     self.user.setValuesForKeys(dictionary)
-            
+                    
                 }
             }, withCancel: nil)
             

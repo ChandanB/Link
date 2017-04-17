@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKCoreKit
+import Intents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +17,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
         let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         // Add any custom logic here.
         return handled
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        // If user is logged in
+        window = UIWindow(frame: UIScreen.main.bounds)
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                print("W")
+                self.window!.rootViewController = ContainerViewController()
+                self.window!.makeKeyAndVisible()
+                
+                // Production use: clientapi.sinch.com
+                
+            } else {
+                self.window!.rootViewController = LoginViewController()
+                self.window!.makeKeyAndVisible()
+            }
+        }
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -28,23 +48,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use Firebase library to configure APIs
         FIRApp.configure()
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window!.rootViewController = SnapContainerViewController()
-        window!.makeKeyAndVisible()
+        checkIfUserIsLoggedIn()
         
         // get rid of black bar underneath navbar
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UIApplication.shared.statusBarStyle = .lightContent
         
+        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        if statusBar.responds(to: #selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = UIColor.rgbLessAlpha(0, green: 0, blue: 0)
+        }
+        
         let statusBarBackgroundView = UIView()
-        statusBarBackgroundView.backgroundColor = .clear
-        statusBarBackgroundView.tintColor = .white
         window?.addSubview(statusBarBackgroundView)
         window?.addConstraintsWithFormat("H:|[v0]|", views: statusBarBackgroundView)
         window?.addConstraintsWithFormat("V:|[v0(20)]", views: statusBarBackgroundView)
         return true
     }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        guard let viewController = window?.rootViewController as? ViewController, let interaction = userActivity.interaction else {
+            return false
+        }
+        
+        var personHandle: INPersonHandle?
+        
+        if let startVideoCallIntent = interaction.intent as? INStartVideoCallIntent {
+            personHandle = startVideoCallIntent.contacts?[0].personHandle
+        } else if let startAudioCallIntent = interaction.intent as? INStartAudioCallIntent {
+            personHandle = startAudioCallIntent.contacts?[0].personHandle
+        }
+        
+        if let personHandle = personHandle {
+            viewController.performStartCallAction(uuid: UUID(), roomName: personHandle.value)
+        }
+        
+        return true
+    }
+
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

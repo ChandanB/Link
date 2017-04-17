@@ -13,6 +13,7 @@ class ChatInputContainerView: UIView, UITextFieldDelegate {
     weak var chatLogController: ChatLogController? {
         didSet {
             sendButton.addTarget(chatLogController, action: #selector(ChatLogController.handleSend), for: .touchUpInside)
+            uploadImageView.addGestureRecognizer(UITapGestureRecognizer(target: chatLogController, action: #selector(ChatLogController.handleUploadTap)))
         }
     }
     
@@ -27,7 +28,7 @@ class ChatInputContainerView: UIView, UITextFieldDelegate {
     let uploadImageView: UIImageView = {
         let uploadImageView = UIImageView()
         uploadImageView.translatesAutoresizingMaskIntoConstraints = false
-        uploadImageView.image = UIImage(named: "Flashlight")
+        uploadImageView.image = UIImage(named: "upload_image_icon")
         uploadImageView.isUserInteractionEnabled = true
         return uploadImageView
     }()

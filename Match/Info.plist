@@ -45,7 +45,20 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>We use your camera so you can video chat with others, that&apos;s it.</string>
+	<string>We use your camera so you can video chat with others, that's it.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We use your mic for in app calls</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This is how other users will see you</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Allura-Regular.otf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>voip</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -56,12 +69,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Allura-Regular.otf</string>
-	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This is how other users will see you</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

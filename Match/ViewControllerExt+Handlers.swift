@@ -2,20 +2,19 @@
 //  LoginController+handlers.swift
 //  It's Lit
 //
-//  Created byChandan on 7/4/16.
-//  Copyright © 2016 TurnApp. All rights reserved.
+//  Created by Chandan Brown on 1/30/17.
+//  Copyright © 2017 Chandan B. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-        
-    func handleFacebookRegister(email: String, name: String, profileImageUrl: String, uid: String) {
+    func handleFacebookRegister(email: String, name: String, profileImageUrl: String, uid: String, gender: String) {
         let ref = FIRDatabase.database().reference()
         let usersReference = ref.child("users").child(uid)
-        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "id": uid]
+        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "id": uid, "gender": gender]
         
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             

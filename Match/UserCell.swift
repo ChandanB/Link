@@ -16,7 +16,7 @@ class UserCell: UITableViewCell {
             setupNameAndProfileImage()
             
             detailTextLabel?.text = message?.text
-            
+            detailTextLabel?.textColor = .white
             if let seconds = message?.timestamp?.doubleValue {
                 let timestampDate = Date(timeIntervalSince1970: seconds)
                 
@@ -35,7 +35,7 @@ class UserCell: UITableViewCell {
                 
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     self.textLabel?.text = dictionary["name"] as? String
-                    
+                    self.textLabel?.textColor = .white
                     if let profileImageUrl = dictionary["profileImageUrl"] as? String {
                         self.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
                     }
@@ -66,13 +66,15 @@ class UserCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = .darkGray
+        label.textColor = .lightGray
         return label
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = .black
+
         addSubview(profileImageView)
         addSubview(timeLabel)
         

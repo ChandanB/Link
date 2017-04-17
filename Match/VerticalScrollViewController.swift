@@ -2,15 +2,15 @@
 //  MiddleScrollViewController.swift
 //  SnapchatSwipeView
 //
-//  Created by Jake Spracher on 12/14/15.
-//  Copyright © 2015 Jake Spracher. All rights reserved.
+//  Created by Chandan Brown on 1/30/17.
+//  Copyright © 2017 Chandan B. All rights reserved.
 //
 
 import UIKit
 
-class VerticalScrollViewController: UIViewController, SnapContainerViewControllerDelegate {
+class VerticalScrollViewController: UIViewController, ContainerViewControllerDelegate {
    // var topVc = ProfileViewController()
-    var middleVc = SearchViewController()
+    var middleVc = ChatViewController()
    // var bottomVc = ProfileViewController()
     var scrollView: UIScrollView!
     
@@ -20,7 +20,7 @@ class VerticalScrollViewController: UIViewController, SnapContainerViewControlle
         let middleScrollVc = VerticalScrollViewController()
         
    //     middleScrollVc.topVc = topVc as! ProfileViewController
-        middleScrollVc.middleVc = middleVc as! SearchViewController
+        middleScrollVc.middleVc = middleVc as! ChatViewController
    //     middleScrollVc.bottomVc = bottomVc as! ProfileViewController
         
         return middleScrollVc

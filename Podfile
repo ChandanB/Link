@@ -1,29 +1,26 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '9.0'
 
-target ‘Link’ do
-  # Comment this line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+def shared_pods
+    pod 'lf'
+    pod 'NVActivityIndicatorView'
+    pod 'EZSwiftExtensions'
+    pod 'Firebase'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
+    pod 'TagCellLayout', '~> 0.3'
+end
 
-  # Pods for Link
-  pod 'lf'
-  pod 'EZSwipeController'
-  pod 'NVActivityIndicatorView'
-  pod 'EZSwiftExtensions'
-  pod 'AMScrollingNavbar'
-  pod 'Firebase'
-  pod 'Firebase/AdMob'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/AppIndexing'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Crash'
-  pod 'Firebase/Database'
-  pod 'Firebase/DynamicLinks'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/RemoteConfig'
-  pod 'Firebase/Storage'
-  pod 'Firebase/Core'
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
+target 'Link' do
+    use_frameworks!
+    shared_pods
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
 end
