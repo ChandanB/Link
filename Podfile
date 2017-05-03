@@ -5,11 +5,22 @@ def shared_pods
     pod 'lf'
     pod 'NVActivityIndicatorView'
     pod 'EZSwiftExtensions'
+    
     pod 'Firebase'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Core'
+    pod 'Firebase/Crash'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Database'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Messaging'
+    pod 'Firebase/AppIndexing'
+    pod 'Firebase/DynamicLinks'
+    pod 'Firebase/RemoteConfig'
+    
     pod 'FBSDKCoreKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
-    pod 'TagCellLayout', '~> 0.3'
 end
 
 target 'Link' do

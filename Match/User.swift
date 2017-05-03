@@ -9,7 +9,6 @@
 import Firebase
 import UIKit
 
-
 class User: NSObject {
     var profileImageUrl : String?
     var email : String?

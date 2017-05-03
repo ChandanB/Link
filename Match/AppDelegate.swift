@@ -68,25 +68,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
-        guard let viewController = window?.rootViewController as? ViewController, let interaction = userActivity.interaction else {
-            return false
-        }
-        
-        var personHandle: INPersonHandle?
-        
-        if let startVideoCallIntent = interaction.intent as? INStartVideoCallIntent {
-            personHandle = startVideoCallIntent.contacts?[0].personHandle
-        } else if let startAudioCallIntent = interaction.intent as? INStartAudioCallIntent {
-            personHandle = startAudioCallIntent.contacts?[0].personHandle
-        }
-        
-        if let personHandle = personHandle {
-            viewController.performStartCallAction(uuid: UUID(), roomName: personHandle.value)
-        }
-        
+//        guard let viewController = window?.rootViewController as? ViewController, let interaction = userActivity.interaction else {
+//            return false
+//        }
+//        
+//        var personHandle: INPersonHandle?
+//        
+//        if let startVideoCallIntent = interaction.intent as? INStartVideoCallIntent {
+//            personHandle = startVideoCallIntent.contacts?[0].personHandle
+//        } else if let startAudioCallIntent = interaction.intent as? INStartAudioCallIntent {
+//            personHandle = startAudioCallIntent.contacts?[0].personHandle
+//        }
+//        
+//        if let personHandle = personHandle {
+//            viewController.performStartCallAction(uuid: UUID(), roomName: personHandle.value)
+//        }
+//        
         return true
     }
-
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

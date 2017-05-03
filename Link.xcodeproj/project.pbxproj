@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0B18D61E89CE5F007E53AD /* ProfileViewControllerExpanse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */; };
 		1F0B18D81E89D2F8007E53AD /* MatchesExpanse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B18D71E89D2F8007E53AD /* MatchesExpanse.swift */; };
 		1F62F8011E4648AD00D44A76 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F8001E4648AD00D44A76 /* ChatLogController.swift */; };
 		1F62F8031E464D2E00D44A76 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F8021E464D2E00D44A76 /* Message.swift */; };
@@ -30,6 +29,7 @@
 		1F796A111E3FB7A0004F2A82 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A101E3FB7A0004F2A82 /* MessagesTableViewController.swift */; };
 		1F796A131E3FB887004F2A82 /* HomeViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A121E3FB887004F2A82 /* HomeViewControllerExt.swift */; };
 		1F796A161E3FB9E1004F2A82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F796A151E3FB9E1004F2A82 /* Extensions.swift */; };
+		1F8010A01EAF3E7C00F8BBD3 /* ProfileViewControllerExpanse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80109F1EAF3E7C00F8BBD3 /* ProfileViewControllerExpanse.swift */; };
 		1F8815C31E95D219004E9613 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815C21E95D219004E9613 /* ViewController.swift */; };
 		1F8815C51E95D4BD004E9613 /* TwilioVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */; };
 		1F8815C61E95D4BD004E9613 /* TwilioVideo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -45,7 +45,6 @@
 		1F8815DC1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */; };
 		1F8815DE1E95D76D004E9613 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815DD1E95D76D004E9613 /* Utils.swift */; };
 		1F8815E01E95D7E0004E9613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8815DF1E95D7E0004E9613 /* Main.storyboard */; };
-		1F8815E41E962BBE004E9613 /* DuhViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8815E31E962BBE004E9613 /* DuhViewController.swift */; };
 		1FA1D72D1E451D8500A7F7AA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */; };
 		1FA1D72E1E451D8500A7F7AA /* VerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */; };
 		1FF74FD71E44758E008337FD /* SearchingEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF74FD61E44758E008337FD /* SearchingEnum.swift */; };
@@ -67,8 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerExpanse.swift; sourceTree = "<group>"; };
 		1F0B18D71E89D2F8007E53AD /* MatchesExpanse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesExpanse.swift; sourceTree = "<group>"; };
+		1F2FB7DD1EB289C600229BE7 /* Link-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Link-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F62F8001E4648AD00D44A76 /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		1F62F8021E464D2E00D44A76 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1F62F8041E464D3E00D44A76 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -93,7 +92,7 @@
 		1F796A101E3FB7A0004F2A82 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		1F796A121E3FB887004F2A82 /* HomeViewControllerExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewControllerExt.swift; sourceTree = "<group>"; };
 		1F796A151E3FB9E1004F2A82 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1F8815961E958217004E9613 /* Link-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Link-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F80109F1EAF3E7C00F8BBD3 /* ProfileViewControllerExpanse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerExpanse.swift; sourceTree = "<group>"; };
 		1F8815C21E95D219004E9613 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F8815C41E95D4BD004E9613 /* TwilioVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwilioVideo.framework; sourceTree = "<group>"; };
 		1F8815C81E95D4E2004E9613 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -108,7 +107,6 @@
 		1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+SimulateIncomingCall.swift"; path = "../../../video-quickstart-swift-master/video-quickstart-swift-master/VideoCallKitQuickStart/ViewController+SimulateIncomingCall.swift"; sourceTree = "<group>"; };
 		1F8815DD1E95D76D004E9613 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1F8815DF1E95D7E0004E9613 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		1F8815E31E962BBE004E9613 /* DuhViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuhViewController.swift; sourceTree = "<group>"; };
 		1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalScrollViewController.swift; sourceTree = "<group>"; };
 		1FF74FD61E44758E008337FD /* SearchingEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingEnum.swift; sourceTree = "<group>"; };
@@ -168,8 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				1F62FA0F1E4A647600D44A76 /* ProfileControllerCardExt.swift */,
+				1F80109F1EAF3E7C00F8BBD3 /* ProfileViewControllerExpanse.swift */,
 				1F796A0B1E3F399C004F2A82 /* ProfileControllerCard.swift */,
-				1F0B18D51E89CE5F007E53AD /* ProfileViewControllerExpanse.swift */,
 			);
 			name = "LEFT VIEWS";
 			sourceTree = "<group>";
@@ -210,6 +208,8 @@
 		1F7969F81E3F2BCA004F2A82 /* Match */ = {
 			isa = PBXGroup;
 			children = (
+				1F6A16791E92D5EB005BBF2F /* RIGHT VIEWS */,
+				1F6A16771E92D5C6005BBF2F /* LEFT VIEWS */,
 				1FA1D7261E4515A700A7F7AA /* ViewControllers */,
 				1F796A141E3FB88E004F2A82 /* Extensions */,
 				1F1220C11E4E3B5A000D5588 /* Cells */,
@@ -249,17 +249,14 @@
 			isa = PBXGroup;
 			children = (
 				1FA1D72B1E451D8500A7F7AA /* ContainerViewController.swift */,
-				1F6A16791E92D5EB005BBF2F /* RIGHT VIEWS */,
-				1F6A16771E92D5C6005BBF2F /* LEFT VIEWS */,
+				1F2FB7DD1EB289C600229BE7 /* Link-Bridging-Header.h */,
 				1F6A167A1E92D63D005BBF2F /* ChatViewController.swift */,
 				1FA1D72C1E451D8500A7F7AA /* VerticalScrollViewController.swift */,
 				1F62F9FC1E4668C900D44A76 /* LoginViewController.swift */,
-				1F8815961E958217004E9613 /* Link-Bridging-Header.h */,
 				1F8815C21E95D219004E9613 /* ViewController.swift */,
 				1F8815D91E95D754004E9613 /* ViewController+CallKit.swift */,
 				1F8815DB1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift */,
 				1F8815DD1E95D76D004E9613 /* Utils.swift */,
-				1F8815E31E962BBE004E9613 /* DuhViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -453,11 +450,9 @@
 				1F62F80D1E464EAC00D44A76 /* imageHandle.swift in Sources */,
 				1F796A0C1E3F399C004F2A82 /* ProfileControllerCard.swift in Sources */,
 				1F8815DE1E95D76D004E9613 /* Utils.swift in Sources */,
-				1F8815E41E962BBE004E9613 /* DuhViewController.swift in Sources */,
 				1F8815DA1E95D754004E9613 /* ViewController+CallKit.swift in Sources */,
 				1F8815DC1E95D761004E9613 /* ViewController+SimulateIncomingCall.swift in Sources */,
 				1F796A111E3FB7A0004F2A82 /* MessagesTableViewController.swift in Sources */,
-				1F0B18D61E89CE5F007E53AD /* ProfileViewControllerExpanse.swift in Sources */,
 				1F62FA101E4A647600D44A76 /* ProfileControllerCardExt.swift in Sources */,
 				1F62F9FF1E466C4E00D44A76 /* ViewControllerExt+Handlers.swift in Sources */,
 				1F796A131E3FB887004F2A82 /* HomeViewControllerExt.swift in Sources */,
@@ -472,6 +467,7 @@
 				1F62F8031E464D2E00D44A76 /* Message.swift in Sources */,
 				1F796A161E3FB9E1004F2A82 /* Extensions.swift in Sources */,
 				1F62F8091E464DD700D44A76 /* ChatInputContainerView.swift in Sources */,
+				1F8010A01EAF3E7C00F8BBD3 /* ProfileViewControllerExpanse.swift in Sources */,
 				1F0B18D81E89D2F8007E53AD /* MatchesExpanse.swift in Sources */,
 				1FF74FD71E44758E008337FD /* SearchingEnum.swift in Sources */,
 			);

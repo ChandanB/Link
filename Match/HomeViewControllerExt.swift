@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import EZSwipeController
+//import EZSwipeController
 
 //extension HomeViewController: EZSwipeControllerDataSource {
 //    func viewControllerData() -> [UIViewController] {

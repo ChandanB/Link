@@ -196,7 +196,7 @@ class ContainerViewController: UIViewController, UIScrollViewDelegate, NVActivit
     
     func startSearching() {
         let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as UIViewController
-        presentVC(viewController)
+       //  presentVC(viewController)
         
         if searching == .notSearching {
             searching = .isSearching

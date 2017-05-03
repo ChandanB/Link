@@ -14,27 +14,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var viewController = ProfileControllerCard()
     
-    let likesButtonText: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Likes", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Helvetica-Light", size: 15)
-        return button
-    }()
-    
     let profileImageIcon: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(named: "Profile Image Shape")
         imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    let backButton: UIButton = {
-        let imageView = UIButton(type: .custom)
-        let image = UIImage(named: "Back Button")
-        imageView.setImage(image, for: .normal)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
